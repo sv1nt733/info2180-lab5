@@ -4,12 +4,17 @@ $username = 'lab5_user';
 $password = 'password123';
 $dbname = 'world';
 $country = filter_input(INPUT_GET, "country", FILTER_SANITIZE_STRING);
+$context = filter_input(INPUT_GET, "context", FILTER_SANITIZE_STRING);
 $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
 $stmt = $conn->query("SELECT * FROM countries WHERE name LIKE '%$country%'");
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-
+$allCities= $conn->query("SELECT cities.name, cities.district, cities.population 
+          FROM cities JOIN countries ON cities.country_code = countries.code
+          WHERE countries.name = '$country'");
+          
+$city = $allCities->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 
 <?php if(!isset($context)):?>
   <link href="world.css" type="text/css" rel="stylesheet" />
