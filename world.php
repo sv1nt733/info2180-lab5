@@ -11,9 +11,49 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
-<ul>
-<?php foreach ($results as $row): ?>
-  <li><?= $row['name'] . ' is ruled by ' . $row['head_of_state']; ?></li>
-<?php endforeach; ?>
-</ul>
-
+<?php if(!isset($context)):?>
+  <link href="world.css" type="text/css" rel="stylesheet" />
+  <table class = "table1">
+    <caption><h2>COUNTRIES</h2></caption>
+    <thead>
+      <tr>
+        <th class = "t1">Name</th>
+        <th class = "t2">Continent</th>
+        <th class = "t3">Independence</th>
+        <th class = "t4">Name of State</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php foreach ($results as $country): ?>
+        <tr>
+          <td><?php echo $country['name']; ?></td>
+          <td><?php echo $country['continent']; ?></td>
+          <td><?php echo $country['independence_year']; ?></td>
+          <td><?php echo $country['head_of_state']; ?></td>
+        </tr>
+      <?php endforeach; ?>
+    </tbody>
+  </table>
+<?php endif; ?>
+<?php if(isset($context)):?>
+  <link href="world.css" type="text/css" rel="stylesheet" />
+  <table class = "table2">
+    <caption><h2>CITIES</h2></caption>
+    <thead>
+      <tr>
+        <th class = "t5">Name</th>
+        <th class = "t6">District</th>
+        <th class = "t7">Population</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php foreach ($city as $city): ?>
+        <tr>
+          <td><?php echo $city['name']; ?></td>
+          <td><?php echo $city['district']; ?></td>
+          <td><?php echo $city['population']; ?></td>
+        </tr>
+      <?php endforeach; ?>
+    </tbody>
+  </table>
+<?php endif; ?>
